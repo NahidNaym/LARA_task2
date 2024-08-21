@@ -1,0 +1,34 @@
+<h3>Middleware</h3>
+<!-- 
+. وسيط بين الطلب المقدم وتنفيذ وظيفة معينة
+.مثال لذلك التأكد من احقية المستخدم في الاطلاع غلى مصادر معينة في الموقع
+. لعمل  middleware in laravel نقوم بالاتي
+      . php artisan make:middleware Test
+      . سنقارن التوكن المبعوث بالتوكن اللي عندي اذا تساويا هنفذ الريكويست والا نرجع للهوم 
+            <?php
+ 
+            namespace App\Http\Middleware;
+  
+             use Closure;
+            use Illuminate\Http\Request;
+           use Symfony\Component\HttpFoundation\Response;
+ 
+           class EnsureTokenIsValid
+          {
+            /**
+           * Handle an incoming request.
+           *   
+           * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+           */
+            public function handle(Request $request, Closure $next): Response
+              {
+            if ($request->input('token') !== 'my-secret-token') {
+            return redirect('/home');
+              }
+ 
+               return $next($request);
+           }
+           
+           }
+
+. ممكن تنفيذ الmiddleware  قبل او بعد الريكويست -->
